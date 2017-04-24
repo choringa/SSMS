@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SSMS</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="action_sign_in">Ingresar o Registrarse</string>
+    <string name="action_sign_in_short">Registro</string>
+    <string name="auth_failed">Error de autenticación, comprueba tu correo electrónico y contraseña o regístrate</string>
+    <string name="btn_back">Atras</string>
+    <string name="btn_change">Cambiar</string>
+    <string name="btn_forgot_password">¿Olvidaste tu contraseña?</string>
+    <string name="btn_link_to_login">Ya estoy registrado. Ingresame!</string>
+    <string name="btn_link_to_register">¿No tienes cuenta? ¡Regístrese en SSMS ahora!</string>
+    <string name="btn_login">INGRESO</string>
+    <string name="btn_remove">Eliminar</string>
+    <string name="btn_reset_password">Restablecer Contraseña</string>
+    <string name="btn_send">Enviar</string>
+    <string name="btn_sign_out">Desconectar</string>
+    <string name="change_email">Cambiar Email</string>
+    <string name="change_password">Cambiar Contraseña</string>
+    <string name="error_field_required">Este campo es requerido</string>
+    <string name="error_incorrect_password">Esta contraseña es incorrecta</string>
+    <string name="error_invalid_email">Este email es incorrecto</string>
+    <string name="error_invalid_password">La contraseña es demaciado corta</string>
+    <string name="forgot_password_msg">Sólo necesitamos que su correo electrónico registrado le envíe instrucciones de restablecimiento de contraseña.</string>
+    <string name="hint_name">Nombre Completo</string>
+    <string name="hint_new_email">Nuevo Email</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="lbl_forgot_password">¿Olvidó la contraseña?</string>
+    <string name="minimum_password">Contraseña demasiado corta, introduzca un mínimo de 6 caracteres.</string>
+    <string name="prompt_password">Contraseña (Opcional)</string>
+    <string name="remove_user">Eliminar Usuario</string>
+    <string name="send_password_reset_email">Enviar contraseña de restablecimiento de contraseña</string>
+    <string name="title_activity_login">Ingresar</string>
+    <string name="username">Nombre de Usuario</string>
+    <string name="permission_rationale">\"Los permisos de los contactos son necesarios para proporcionar terminaciones de correo electrónico.\"</string>
+    <string name="phone_numer">Número de celular</string>
+    <string name="new_pass">Nueva Contraseña</string>
+    <string name="crypt_method">Método de Encriptación</string>
+    <string name="bytes_long">Largo en Bytes</string>
+    <string name="public_key_reg2">Clave pública (dejar vacío para la generación automática)</string>
+    <string name="private_key_reg2">Clave privada (dejar vacío para la generación automática)</string>
+    <string name="save_private_key">Guardar clave privada en el servidor de la app (Opcional)</string>
+    <string name="accept_terms">He leído y acepto los términos de uso</string>
+    <string name="finish">Terminar</string>
+</resources>

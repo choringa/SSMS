@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="crpyt_methods_array">
+        <item>@string/crypt_method</item>
+        <item>Cryptoflash</item>
+        <item>Twofish</item>
+        <item>DES</item>
+        <item>3DES</item>
+        <item>RSA</item>
+        <item>AES</item>
+    </string-array>
+
+    <string-array name="bytes_long_array">
+        <item>@string/bytes_long</item>
+        <item>256</item>
+        <item>512</item>
+        <item>1024</item>
+        <item>2048</item>
+    </string-array>
+</resources>

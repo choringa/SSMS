@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "906888620237",
+    "firebase_url": "https://ssms-1464d.firebaseio.com",
+    "project_id": "ssms-1464d",
+    "storage_bucket": "ssms-1464d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:906888620237:android:16c3df228a88c2bc",
+        "android_client_info": {
+          "package_name": "com.indi.ssms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "906888620237-cq9ldgov6vqtknt8k8qj6k0slh1jaqhs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGBhOlSINckatX3cLefFESivww6D7hGtY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
