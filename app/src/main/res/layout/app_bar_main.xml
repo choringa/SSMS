@@ -16,9 +16,74 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+
+        <ProgressBar
+            android:id="@+id/progressBar_main_activity"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_marginBottom="20dp"
+             />
+
+        <TextView
+            android:text="@string/loading_contacts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/tv_loading_contacts"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:gravity="center_vertical|center_horizontal" />
+
+        <TextView
+        android:text="@string/no_contacts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/tv_no_contacts"
+        android:textAlignment="center"
+        android:gravity="center_vertical|center_horizontal" />
+
+
+        <TextView
+            android:text="@string/press_plus"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="40dp"
+            android:id="@+id/tv_press_plus"
+            android:textAlignment="center"
+            android:gravity="center_vertical|center_horizontal" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swiperefreshMainActivity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_margin="10dp">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recyclerViewContacts"
+            android:clickable="true"
+            android:smoothScrollbar="true"
+            android:layout_gravity="center_horizontal" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    </FrameLayout>
 
     <include layout="@layout/content_main" />
 
@@ -28,6 +93,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:srcCompat="@android:drawable/ic_input_add" />
 
 </android.support.design.widget.CoordinatorLayout>

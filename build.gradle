@@ -14,7 +14,11 @@ buildscript {
 
 allprojects {
     repositories {
+        maven {
+            url "https://github.com/QuickBlox/quickblox-android-sdk-releases/raw/master/"
+        }
         jcenter()
+        mavenCentral();
     }
 }
 

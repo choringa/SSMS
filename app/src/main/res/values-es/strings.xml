@@ -42,4 +42,10 @@
     <string name="save_private_key">Guardar clave privada en el servidor de la app (Opcional)</string>
     <string name="accept_terms">He leído y acepto los términos de uso</string>
     <string name="finish">Terminar</string>
+    <string name="validating_info">Validando información, por favor espere...</string>
+    <string name="error_try_again">Ha ocurrido un error inesperado. Por favor trate nuevamente...</string>
+    <string name="no_contacts">Aún no tienes contactos.</string>
+    <string name="press_plus">Pulsa en el botón + para agregar uno.</string>
+    <string name="loading_contacts">Cargando contactos, por favor espere...</string>
+    <string name="logout">Logout</string>
 </resources>

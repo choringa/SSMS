@@ -56,6 +56,12 @@
     <string name="save_private_key">Save private key on app server (Optional)</string>
     <string name="accept_terms">I have read and accept terms of use</string>
     <string name="finish">Finish</string>
+    <string name="validating_info">Validating information, please wait...</string>
+    <string name="error_try_again">An unexpected error has occurred. Please try again...</string>
+    <string name="no_contacts">You don\'t have contacts yet.</string>
+    <string name="press_plus">Press on + button to add one.</string>
+    <string name="loading_contacts">Loading contacts, please wait...</string>
+    <string name="logout">Logout</string>
 
 
 </resources>
