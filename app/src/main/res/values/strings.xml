@@ -62,6 +62,8 @@
     <string name="press_plus">Press on + button to add one.</string>
     <string name="loading_contacts">Loading contacts, please wait...</string>
     <string name="logout">Logout</string>
+    <string name="chat_edit_text_hint">Message</string>
+    <string name="chat_send">Send</string>
 
 
 </resources>

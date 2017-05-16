@@ -6,4 +6,6 @@
     <dimen name="logo_w_h">100dp</dimen>
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
+    <dimen name="padding_common">8dp</dimen>
+    <dimen name="padding_common_twice">16dp</dimen>
 </resources>

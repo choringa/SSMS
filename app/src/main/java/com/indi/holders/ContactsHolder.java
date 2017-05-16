@@ -2,11 +2,13 @@ package com.indi.holders;
 
 import android.app.ProgressDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.indi.mundo.UserBase;
+import com.indi.ssms.MainActivity;
 import com.indi.ssms.R;
 
 /**
@@ -22,16 +24,17 @@ public class ContactsHolder extends RecyclerView.ViewHolder {
     private Button btnShareRedes;
     private ContactsHolder instancia;
     private ProgressDialog progressDialog;
-    private UserBase contact;
+    private MainActivity mainActivity;
 
-    public ContactsHolder(View itemView) {
+    public ContactsHolder(View itemView, MainActivity mainActivity) {
         super(itemView);
         view = itemView;
+        this.mainActivity = mainActivity;
     }
 
     public void bindContact(final UserBase contact) {
         instancia = this;
-        this.contact = contact;
+
         usernameContacto = (TextView) view.findViewById(R.id.tvUsernameContact);
         usernameContacto.setText(contact.username);
 
@@ -43,7 +46,8 @@ public class ContactsHolder extends RecyclerView.ViewHolder {
         btnShareRedes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //TODO: share button
+                Log.i(TAG, "btnSharePressed");
             }
         });
 
@@ -51,7 +55,9 @@ public class ContactsHolder extends RecyclerView.ViewHolder {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //TODO: share button
+                Log.i(TAG, "btnContactPressed");
+                mainActivity.iniciarChat(contact);
             }
         });
     }

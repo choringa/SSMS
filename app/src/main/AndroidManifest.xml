@@ -29,7 +29,8 @@
         <activity android:name=".RegisterActivity">
             android:theme="@style/AppTheme.NoActionBar" />
         </activity>
-        <activity android:name=".Register2Activity"></activity>
+        <activity android:name=".Register2Activity" />
+        <activity android:name=".ChatActivity"></activity>
     </application>
 
 </manifest>

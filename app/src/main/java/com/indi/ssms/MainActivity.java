@@ -31,8 +31,13 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.indi.adapters.DividerItemDecoration;
 import com.indi.adapters.ListContactsAdapter;
+import com.indi.mundo.InitQBSettings;
 import com.indi.mundo.UserBase;
 import com.quickblox.auth.QBAuth;
+import com.quickblox.chat.QBChatService;
+import com.quickblox.core.QBEntityCallback;
+import com.quickblox.core.exception.QBResponseException;
+import com.quickblox.users.QBUsers;
 import com.quickblox.users.model.QBUser;
 
 import java.util.ArrayList;
@@ -50,6 +55,7 @@ public class MainActivity extends AppCompatActivity
     private FirebaseAuth auth;
     private FirebaseDatabase fbDatabase;
     private ArrayList<UserBase> contacts;
+    private QBUser qbUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,9 +98,6 @@ public class MainActivity extends AppCompatActivity
         tvPressPlus = (TextView) findViewById(R.id.tv_press_plus);
         tvLoadingContacts= (TextView) findViewById(R.id.tv_loading_contacts);
 
-        tvNoContacts.setVisibility(View.GONE);
-        tvPressPlus.setVisibility(View.GONE);
-
         recyclerViewContacts = (RecyclerView) findViewById(R.id.recyclerViewContacts);
         recyclerViewContacts.addItemDecoration(new DividerItemDecoration(this, null));
         recyclerViewContacts.setHasFixedSize(true);
@@ -111,6 +114,8 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        new InitQBSettings(this);
+
         contacts = new ArrayList<>();
 
         signInQB();
@@ -121,23 +126,36 @@ public class MainActivity extends AppCompatActivity
 
     private void signInQB() {
 
-        if(QBAuth.getSession() == null){
+        if(this.qbUser == null){
             QBUser qbUser = new QBUser();
             auth = FirebaseAuth.getInstance();
             FirebaseUser fbUser = auth.getCurrentUser();
             //Crea la nueva session de usuario si no esta creada con los parametros de FB
             qbUser.setEmail(fbUser.getEmail());
             qbUser.setPassword(fbUser.getUid());
-            QBAuth.createSessionByEmail(qbUser);
+
+            QBUsers.signIn(qbUser).performAsync(new QBEntityCallback<QBUser>() {
+                @Override
+                public void onSuccess(QBUser qbUser, Bundle bundle) {
+                    Log.i(TAG, "Asigno al chavon de id: " + qbUser.getId());
+                    asignarChavon(qbUser);
+                }
+
+                @Override
+                public void onError(QBResponseException e) {
+                    Log.e(TAG, "signInQB->Error loqueando al chavon: " + e.getLocalizedMessage());
+                }
+            });
+
         }
         Log.i(TAG, "hola-->" + QBAuth.getSession().toString());
     }
 
-    private void cargarContactos() {
-        progressBarLoadContacts.setVisibility(View.GONE);
+    private void asignarChavon(QBUser qbUser) {
+        this.qbUser = qbUser;
+    }
 
-        if(swipeRefreshLayoutMainActivity.isRefreshing())
-            swipeRefreshLayoutMainActivity.setRefreshing(false);
+    private void cargarContactos() {
 
 
         //Por ahora a traer todos los registrados en la base firebase y agregarlos como contactos.
@@ -147,10 +165,6 @@ public class MainActivity extends AppCompatActivity
 
         listContactsAdapter = new ListContactsAdapter(contacts, this);
         recyclerViewContacts.setAdapter(listContactsAdapter);
-
-
-        tvLoadingContacts.setVisibility(View.GONE);
-        //QBUsers.getUser
     }
 
     private void sacarContactosFB() {
@@ -166,6 +180,23 @@ public class MainActivity extends AppCompatActivity
                     contacts.add(newPost);
                     listContactsAdapter.notifyDataSetChanged();
                 }
+
+                if(swipeRefreshLayoutMainActivity.isRefreshing())
+                    swipeRefreshLayoutMainActivity.setRefreshing(false);
+
+                if(contacts.size() == 0){
+                    tvLoadingContacts.setVisibility(View.GONE);
+                    tvNoContacts.setVisibility(View.VISIBLE);
+                    tvPressPlus.setVisibility(View.VISIBLE);
+                }
+                else{
+                    tvLoadingContacts.setVisibility(View.GONE);
+                    tvNoContacts.setVisibility(View.GONE);
+                    tvPressPlus.setVisibility(View.GONE);
+                }
+
+
+                progressBarLoadContacts.setVisibility(View.GONE);
             }
 
             @Override
@@ -239,5 +270,11 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void iniciarChat(UserBase contact) {
+        Intent intent = new Intent(this, ChatActivity.class);
+        intent.putExtra("contact", contact);
+        startActivity(intent);
     }
 }

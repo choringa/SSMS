@@ -1,10 +1,12 @@
 package com.indi.mundo;
 
+import java.io.Serializable;
+
 /**
  * Created by Choringa on 4/23/17.
  */
 
-public class UserBase {
+public class UserBase implements Serializable {
     public String username, email, phoneNumber;
     public int qbID;
 

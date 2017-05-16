@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.indi.mundo.InitQBSettings;
 import com.indi.mundo.UserBase;
 
 import com.quickblox.auth.QBAuth;
@@ -166,12 +167,8 @@ public class RegisterActivity extends AppCompatActivity {
      * @param fbID el uid de firebase.
      */
     private void signUpQB(final String username, final String fbID, final String email,final String phoneNumber,final FirebaseUser userFB) {
-        //Inicializa los settings de quickblox con las credenciales de la aplicacion
-        QBSettings.getInstance().init(RegisterActivity.this, "56981", "OfgrpPbdW98bkgh", "Yzy3weP7GPzqkkg");
-        //Sin esta joda manda un null pointer de String :P
-        QBSettings.getInstance().setAccountKey("6YuXLSpsvnxKy1gphqWf");
-        //Comico que sirva con el account key de quickblox como tal.
-        //QBSettings.getInstance().setAccountKey("rz2sXxBt5xgSxGjALDW6");
+
+        new InitQBSettings(this);
 
         Log.i(TAG, "signUpQB-->Va a crear el nuevo acceso para QUICKBLOX al usuario: " + username + ",pass: "  + fbID);
 

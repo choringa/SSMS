@@ -48,4 +48,6 @@
     <string name="press_plus">Pulsa en el botón + para agregar uno.</string>
     <string name="loading_contacts">Cargando contactos, por favor espere...</string>
     <string name="logout">Logout</string>
+    <string name="chat_edit_text_hint">Mensaje</string>
+    <string name="chat_send">Enviar</string>
 </resources>
