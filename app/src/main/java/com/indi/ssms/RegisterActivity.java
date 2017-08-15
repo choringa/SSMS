@@ -21,15 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.indi.mundo.InitQBSettings;
 import com.indi.mundo.UserBase;
-
-import com.quickblox.auth.QBAuth;
-import com.quickblox.auth.session.QBSettings;
-import com.quickblox.core.QBEntityCallback;
-import com.quickblox.core.exception.QBResponseException;
-import com.quickblox.users.QBUsers;
-import com.quickblox.users.model.QBUser;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -129,7 +121,6 @@ public class RegisterActivity extends AppCompatActivity {
      * @param phoneNumber nuemero de celular del contacto.
      */
     private void signUpFirebase(final String email, String password, final String username, final String phoneNumber){
-        //TODO: cuando el email ya esta registrado sale el exception.
         Log.i(TAG, "btnSignUp-->Va a guardar el nuevo uaurio en firebase para autenticacion con email:  " + email);
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
@@ -152,7 +143,7 @@ public class RegisterActivity extends AppCompatActivity {
                             FirebaseUser userFB = auth.getCurrentUser();
                             final String fbID = userFB.getUid();
                             //Si crea la nueva autenticacion en FB va a crear el nuevo usaurio en QB
-                            signUpQB(username, fbID, email, phoneNumber,userFB);
+                            signUpDatabase(username, fbID, email, phoneNumber,userFB);
 
                         }
                     }
@@ -166,32 +157,16 @@ public class RegisterActivity extends AppCompatActivity {
      * @param username el username del usaurio.
      * @param fbID el uid de firebase.
      */
-    private void signUpQB(final String username, final String fbID, final String email,final String phoneNumber,final FirebaseUser userFB) {
-
-        new InitQBSettings(this);
+    private void signUpDatabase(final String username, final String fbID, final String email,final String phoneNumber,final FirebaseUser userFB) {
 
         Log.i(TAG, "signUpQB-->Va a crear el nuevo acceso para QUICKBLOX al usuario: " + username + ",pass: "  + fbID);
 
-        final QBUser qbUser = new QBUser();
-        qbUser.setLogin(email);
-        qbUser.setEmail(email);
-        qbUser.setFullName(username);
-        qbUser.setPassword(fbID);
-        //qbUser.setPhone(phoneNumber);
 
-
-        QBUsers.signUp(qbUser).performAsync(new QBEntityCallback<QBUser>() {
-            @Override
-            public void onSuccess(QBUser qbUser, Bundle bundle) {
-                Log.i(TAG, "signUpQB->QBUser->Creado bien");
-
-                //Cuando termina de ingresar al usuario en QB lo guarda el objeto usuario en la base de firebase
-                int qbID = qbUser.getId();
 
                 FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = mDatabase.getReference("users");
 
-                UserBase userBase = new UserBase(username, email, phoneNumber, qbID);
+                UserBase userBase = new UserBase(username, email, phoneNumber);
                 Log.i(TAG, "btnSignUp-->Va a guardar el nuevo usuario en firebase como objeto usuario con username: " + username);
                 myRef.child(userFB.getUid()).setValue(userBase).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<Void>() {
                     @Override
@@ -219,21 +194,7 @@ public class RegisterActivity extends AppCompatActivity {
                             });
                         }
                     }
-                });
-            }
-
-            @Override
-            public void onError(QBResponseException e) {
-
-                if(progressBar.getVisibility() == ProgressBar.VISIBLE)
-                    progressBar.setVisibility(ProgressBar.GONE);
-
-                Toast.makeText(RegisterActivity.this, e.getMessage(),
-                        Toast.LENGTH_SHORT).show();
-                Log.e(TAG, "signUpQB->QBUser->Error autenticación fallida: " + e.getLocalizedMessage());
-                //signUpQB(username, password, email);
-            }
-        });
+            });
     }
 
     @Override

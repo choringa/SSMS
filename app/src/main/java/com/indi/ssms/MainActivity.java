@@ -27,18 +27,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.indi.adapters.DividerItemDecoration;
 import com.indi.adapters.ListContactsAdapter;
-import com.indi.mundo.InitQBSettings;
 import com.indi.mundo.UserBase;
-import com.quickblox.auth.QBAuth;
-import com.quickblox.chat.QBChatService;
-import com.quickblox.core.QBEntityCallback;
-import com.quickblox.core.exception.QBResponseException;
-import com.quickblox.users.QBUsers;
-import com.quickblox.users.model.QBUser;
 
 import java.util.ArrayList;
 
@@ -55,7 +46,6 @@ public class MainActivity extends AppCompatActivity
     private FirebaseAuth auth;
     private FirebaseDatabase fbDatabase;
     private ArrayList<UserBase> contacts;
-    private QBUser qbUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,45 +104,11 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        new InitQBSettings(this);
-
         contacts = new ArrayList<>();
 
-        signInQB();
         cargarContactos();
         //Verificacion de que el usuario tenga al menos una clave privada.
 
-    }
-
-    private void signInQB() {
-
-        if(this.qbUser == null){
-            QBUser qbUser = new QBUser();
-            auth = FirebaseAuth.getInstance();
-            FirebaseUser fbUser = auth.getCurrentUser();
-            //Crea la nueva session de usuario si no esta creada con los parametros de FB
-            qbUser.setEmail(fbUser.getEmail());
-            qbUser.setPassword(fbUser.getUid());
-
-            QBUsers.signIn(qbUser).performAsync(new QBEntityCallback<QBUser>() {
-                @Override
-                public void onSuccess(QBUser qbUser, Bundle bundle) {
-                    Log.i(TAG, "Asigno al chavon de id: " + qbUser.getId());
-                    asignarChavon(qbUser);
-                }
-
-                @Override
-                public void onError(QBResponseException e) {
-                    Log.e(TAG, "signInQB->Error loqueando al chavon: " + e.getLocalizedMessage());
-                }
-            });
-
-        }
-        Log.i(TAG, "hola-->" + QBAuth.getSession().toString());
-    }
-
-    private void asignarChavon(QBUser qbUser) {
-        this.qbUser = qbUser;
     }
 
     private void cargarContactos() {
@@ -240,7 +196,6 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
             auth.signOut();
-            QBAuth.deleteSession();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
             return true;
