@@ -7,6 +7,12 @@
     <color name="colorPrimary">#00bcd4</color>
     <color name="colorPrimaryDark">#0097a7</color>
     <color name="colorAccent">#f2fe71</color>
+    <color name="colorShadow">#ffffcb</color>
+
+
+    <color name="paleta1Primary">#33314F</color>
+    <color name="paleta1PrimaryDark">#29273F</color>
+    <color name="paleta1Accent">#EE696E</color>
 
     <color name="bg_login">#26ae90</color>
     <color name="bg_register">#2e3237</color>

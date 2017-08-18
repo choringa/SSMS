@@ -55,7 +55,6 @@ public class ContactsHolder extends RecyclerView.ViewHolder {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: share button
                 Log.i(TAG, "btnContactPressed");
                 mainActivity.iniciarChat(contact);
             }

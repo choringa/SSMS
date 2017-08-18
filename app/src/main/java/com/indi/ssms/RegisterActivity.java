@@ -159,14 +159,10 @@ public class RegisterActivity extends AppCompatActivity {
      */
     private void signUpDatabase(final String username, final String fbID, final String email,final String phoneNumber,final FirebaseUser userFB) {
 
-        Log.i(TAG, "signUpQB-->Va a crear el nuevo acceso para QUICKBLOX al usuario: " + username + ",pass: "  + fbID);
-
-
-
                 FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = mDatabase.getReference("users");
 
-                UserBase userBase = new UserBase(username, email, phoneNumber);
+                UserBase userBase = new UserBase(fbID, username, email, phoneNumber);
                 Log.i(TAG, "btnSignUp-->Va a guardar el nuevo usuario en firebase como objeto usuario con username: " + username);
                 myRef.child(userFB.getUid()).setValue(userBase).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<Void>() {
                     @Override
