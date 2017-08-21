@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/paleta1Primary</item>
         <item name="colorPrimaryDark">@color/paleta1PrimaryDark</item>
-        <item name="colorAccent">@color/white</item>
+        <item name="colorAccent">@color/input_register_bg</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

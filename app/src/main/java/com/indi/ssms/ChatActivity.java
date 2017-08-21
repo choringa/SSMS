@@ -33,6 +33,7 @@ public class ChatActivity extends AppCompatActivity {
     private UserBase contact;
     private ArrayList<ChatMessage> messagesList;
     private ListChatAdapter listChatAdapter;
+    private RecyclerView chatList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,7 @@ public class ChatActivity extends AppCompatActivity {
         EditText inputMessage = (EditText) findViewById(R.id.message_input);
         //Guarda el mensaje para el en la base
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("messages").child(contact.id+"_"+firebaseAuth.getCurrentUser().getUid());
-        ChatMessage newMessage = new ChatMessage(inputMessage.getText().toString(), contact.username);
+        ChatMessage newMessage = new ChatMessage(inputMessage.getText().toString(), firebaseAuth.getCurrentUser().getDisplayName());
         dbRef.push().setValue(newMessage);
         //Guarda el mensaje para su contacto en la base
         dbRef = FirebaseDatabase.getInstance().getReference("messages").child(firebaseAuth.getCurrentUser().getUid()+"_"+contact.id);
@@ -75,7 +76,7 @@ public class ChatActivity extends AppCompatActivity {
      * Metodo que muestra los mensajes cargados en la lista.
      */
     private void displayChatMessage() {
-        RecyclerView chatList = (RecyclerView) findViewById(R.id.messages_list_chat);
+        chatList = (RecyclerView) findViewById(R.id.messages_list_chat);
         chatList.addItemDecoration(new DividerItemDecoration(this, null));
         chatList.setHasFixedSize(true);
         chatList.setLayoutManager(new LinearLayoutManager(this));
@@ -97,6 +98,7 @@ public class ChatActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 ChatMessage chatMessage = dataSnapshot.getValue(ChatMessage.class);
                 messagesList.add(chatMessage);
+                chatList.smoothScrollToPosition(messagesList.size());
                 listChatAdapter.notifyDataSetChanged();
                 //progressBarLoadContacts.setVisibility(View.GONE);
             }
