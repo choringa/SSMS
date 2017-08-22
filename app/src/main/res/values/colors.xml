@@ -13,6 +13,7 @@
     <color name="paleta1Primary">#33314F</color>
     <color name="paleta1PrimaryDark">#29273F</color>
     <color name="paleta1Accent">#EE696E</color>
+    <color name="paleta1Test">#d5d2df</color>
 
     <color name="bg_login">#26ae90</color>
     <color name="bg_register">#2e3237</color>

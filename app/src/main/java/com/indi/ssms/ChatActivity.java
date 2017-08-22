@@ -1,5 +1,6 @@
 package com.indi.ssms;
 
+import android.content.res.Configuration;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ public class ChatActivity extends AppCompatActivity {
     private ArrayList<ChatMessage> messagesList;
     private ListChatAdapter listChatAdapter;
     private RecyclerView chatList;
+    private LinearLayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,9 +80,10 @@ public class ChatActivity extends AppCompatActivity {
      */
     private void displayChatMessage() {
         chatList = (RecyclerView) findViewById(R.id.messages_list_chat);
-        chatList.addItemDecoration(new DividerItemDecoration(this, null));
         chatList.setHasFixedSize(true);
-        chatList.setLayoutManager(new LinearLayoutManager(this));
+        mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager.setStackFromEnd(true);
+        chatList.setLayoutManager(mLayoutManager);
         listChatAdapter = new ListChatAdapter(messagesList,this);
         chatList.setAdapter(listChatAdapter);
     }
@@ -117,6 +120,4 @@ public class ChatActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {}
         });
     }
-
-
 }
