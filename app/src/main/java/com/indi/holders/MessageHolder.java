@@ -1,10 +1,13 @@
 package com.indi.holders;
 
+import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.indi.mundo.ChatMessage;
 import com.indi.ssms.ChatActivity;
 import com.indi.ssms.R;
@@ -27,13 +30,33 @@ public class MessageHolder extends RecyclerView.ViewHolder {
     }
 
     public void bindMessage(ChatMessage chatMessage){
-        TextView message, user, time;
-        message = (TextView) view.findViewById(R.id.mesagge_text_item_message);
-        user = (TextView)view.findViewById(R.id.username_item_message);
-        time = (TextView) view.findViewById(R.id.time_item_message);
+        TextView messageUser, userUser, timeUser, messageContact, userContact, timeContact;
+        messageUser = (TextView) view.findViewById(R.id.mesagge_text_item_message);
+        userUser = (TextView)view.findViewById(R.id.username_item_message);
+        timeUser = (TextView) view.findViewById(R.id.time_item_message);
 
-        message.setText(chatMessage.getMessageText());
-        user.setText(chatMessage.getMessageUser());
-        time.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)", chatMessage.getMessageTime()));
+
+        messageContact = (TextView) view.findViewById(R.id.contact_mesagge_text_item_message);
+        userContact = (TextView)view.findViewById(R.id.contact_username_item_message);
+        timeContact = (TextView) view.findViewById(R.id.contact_time_item_message);
+
+        if(chatMessage.getMessageUser().equals(FirebaseAuth.getInstance().getCurrentUser().getDisplayName())) {
+            messageContact.setText("");
+            userContact.setText("");
+            timeContact.setText("");
+
+            messageUser.setText(chatMessage.getMessageText());
+            userUser.setText(chatMessage.getMessageUser());
+            timeUser.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)", chatMessage.getMessageTime()));
+        }
+        else{
+            messageUser.setText("");
+            userUser.setText("");
+            timeUser.setText("");
+
+            messageContact.setText(chatMessage.getMessageText());
+            userContact.setText(chatMessage.getMessageUser());
+            timeContact.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)", chatMessage.getMessageTime()));
+        }
     }
 }

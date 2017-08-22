@@ -53,6 +53,7 @@ public class ChatActivity extends AppCompatActivity {
         messagesList = new ArrayList<>();
         loadMessagesFB();
         displayChatMessage();
+        chatList.smoothScrollToPosition(messagesList.size());
     }
 
     /**
