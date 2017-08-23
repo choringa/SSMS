@@ -6,9 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -36,6 +38,7 @@ public class ChatActivity extends AppCompatActivity {
     private ListChatAdapter listChatAdapter;
     private RecyclerView chatList;
     private LinearLayoutManager mLayoutManager;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +56,22 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
         messagesList = new ArrayList<>();
+        setToolbar();
+        if (getSupportActionBar() != null) // Habilitar up button
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         loadMessagesFB();
         displayChatMessage();
         chatList.smoothScrollToPosition(messagesList.size());
+    }
+
+    private void setToolbar() {
+        toolbar = findViewById(R.id.toolbar);
+        TextView toolbarTitle = findViewById(R.id.toolbar_title);
+        TextView toolbarTitleEmail = findViewById(R.id.toolbar_title_email);
+        toolbarTitle.setText(contact.username);
+        toolbarTitleEmail.setText(contact.email);
+        setSupportActionBar(toolbar);
     }
 
     /**
@@ -64,15 +80,16 @@ public class ChatActivity extends AppCompatActivity {
      */
     private void sendMessageFB() {
         EditText inputMessage = (EditText) findViewById(R.id.message_input);
-        //Guarda el mensaje para el en la base
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("messages").child(contact.id+"_"+firebaseAuth.getCurrentUser().getUid());
-        ChatMessage newMessage = new ChatMessage(inputMessage.getText().toString(), firebaseAuth.getCurrentUser().getDisplayName());
-        dbRef.push().setValue(newMessage);
-        //Guarda el mensaje para su contacto en la base
-        dbRef = FirebaseDatabase.getInstance().getReference("messages").child(firebaseAuth.getCurrentUser().getUid()+"_"+contact.id);
-        dbRef.push().setValue(newMessage);
-
-        inputMessage.setText("");
+        if(!inputMessage.getText().toString().trim().equals("")) {
+            //Guarda el mensaje para el en la base
+            DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("messages").child(contact.id + "_" + firebaseAuth.getCurrentUser().getUid());
+            ChatMessage newMessage = new ChatMessage(inputMessage.getText().toString(), firebaseAuth.getCurrentUser().getDisplayName());
+            dbRef.push().setValue(newMessage);
+            //Guarda el mensaje para su contacto en la base
+            dbRef = FirebaseDatabase.getInstance().getReference("messages").child(firebaseAuth.getCurrentUser().getUid() + "_" + contact.id);
+            dbRef.push().setValue(newMessage);
+            inputMessage.setText("");
+        }
     }
 
     /**

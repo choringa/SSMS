@@ -3,7 +3,7 @@
     android:id="@+id/message_item_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp">
+    android:layout_marginBottom="3dp">
 
     <TextView
         android:id="@+id/username_item_message"
@@ -18,7 +18,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/mesagge_text_item_message"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="@+id/username_item_message"/>
+        android:layout_alignParentBottom="@+id/username_item_message"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/mesagge_text_item_message"
@@ -28,7 +29,7 @@
         android:layout_alignParentEnd="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="18sp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="2dp"
         android:layout_below="@+id/username_item_message"/>
 
     <!-- Contact -->
@@ -46,7 +47,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/contact_mesagge_text_item_message"
-        android:layout_alignParentBottom="@+id/username_item_message"/>
+        android:layout_alignParentBottom="@+id/username_item_message"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/contact_mesagge_text_item_message"
@@ -54,8 +56,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/bg_register"
         android:textSize="18sp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="2dp"
         android:layout_below="@+id/username_item_message"/>
 
 

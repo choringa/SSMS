@@ -7,15 +7,23 @@
     android:background="@color/white"
     tools:context="com.indi.adapters.ListContactsAdapter">
 
+    <ImageView
+        android:id="@+id/iconContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_user_blue"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"/>
+
     <TextView
         android:id="@+id/tvUsernameContact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="100dp"
+        android:layout_marginRight="70dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/iconContact"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -23,9 +31,9 @@
         android:id="@+id/tvNumeroContact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="100dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toRightOf="@+id/iconContact"
         android:layout_below="@+id/tvUsernameContact"
         android:layout_gravity="left"
         android:text="Medium Text"
@@ -40,19 +48,10 @@
         android:src="@drawable/ic_action_info"
         android:layout_alignParentRight="true"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="60dp"
-        android:layout_alignTop="@+id/tvUsernameContact"
-        android:layout_alignEnd="@+id/tvUsernameContact"/>
-
-    <ImageView
-        android:id="@+id/btnShare"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_share"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
         android:layout_alignTop="@+id/tvUsernameContact"
-        android:layout_alignEnd="@+id/btnInfo"/>
+        android:actionProviderClass="android.widget.ShareActionProvider"/>
+
+
 
 </RelativeLayout>

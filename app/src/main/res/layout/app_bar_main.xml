@@ -85,12 +85,30 @@
 
     <include layout="@layout/content_main" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp">
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabSize="mini"
+            android:layout_marginBottom="10dp"
+            app:srcCompat="@drawable/ic_share" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fabShare"
+            app:fabSize="mini"
+            android:layout_marginBottom="10dp"
+            app:srcCompat="@drawable/ic_add_contact" />
+    </RelativeLayout>
+
+
 
 </android.support.design.widget.CoordinatorLayout>

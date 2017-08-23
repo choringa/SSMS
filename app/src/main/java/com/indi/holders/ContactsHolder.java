@@ -1,6 +1,9 @@
 package com.indi.holders;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.ShareActionProvider;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,7 +23,7 @@ public class ContactsHolder extends RecyclerView.ViewHolder {
 
     private View view;
     private TextView usernameContacto, phoneNumberContact;
-    private ImageView btnShareRedes, btnInfoContact;
+    private ImageView btnInfoContact;
     private ContactsHolder instancia;
     private MainActivity mainActivity;
 
@@ -38,16 +41,6 @@ public class ContactsHolder extends RecyclerView.ViewHolder {
 
         phoneNumberContact = (TextView) view.findViewById(R.id.tvNumeroContact);
         phoneNumberContact.setText(contact.email);
-
-
-        btnShareRedes = view.findViewById(R.id.btnShare);
-        btnShareRedes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO: share button
-                Log.i(TAG, "btnSharePressed");
-            }
-        });
 
         btnInfoContact = view.findViewById(R.id.btnInfo);
         btnInfoContact.setOnClickListener(new View.OnClickListener() {
