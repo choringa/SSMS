@@ -37,50 +37,47 @@
              />
 
         <TextView
-            android:text="@string/loading_contacts"
+            android:id="@+id/tv_loading_contacts"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/tv_loading_contacts"
-            android:textAlignment="center"
-            android:gravity="center_vertical|center_horizontal" />
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/loading_contacts"
+            android:textAlignment="center" />
 
         <TextView
-            android:visibility="gone"
-        android:text="@string/no_contacts"
+            android:id="@+id/tv_no_contacts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/tv_no_contacts"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="@string/no_contacts"
         android:textAlignment="center"
-        android:gravity="center_vertical|center_horizontal" />
+        android:visibility="gone" />
 
 
         <TextView
-            android:visibility="gone"
-            android:text="@string/press_plus"
+            android:id="@+id/tv_press_plus"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="40dp"
-            android:id="@+id/tv_press_plus"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/press_plus"
             android:textAlignment="center"
-            android:gravity="center_vertical|center_horizontal" />
+            android:visibility="gone" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swiperefreshMainActivity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_margin="10dp">
+        >
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewContacts"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/recyclerViewContacts"
+            android:layout_gravity="center_horizontal"
             android:clickable="true"
-            android:smoothScrollbar="true"
-            android:layout_gravity="center_horizontal" />
+            android:smoothScrollbar="true" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
