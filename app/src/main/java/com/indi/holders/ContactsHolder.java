@@ -1,10 +1,9 @@
 package com.indi.holders;
 
-import android.app.ProgressDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.indi.mundo.UserBase;
@@ -21,9 +20,8 @@ public class ContactsHolder extends RecyclerView.ViewHolder {
 
     private View view;
     private TextView usernameContacto, phoneNumberContact;
-    private Button btnShareRedes;
+    private ImageView btnShareRedes, btnInfoContact;
     private ContactsHolder instancia;
-    private ProgressDialog progressDialog;
     private MainActivity mainActivity;
 
     public ContactsHolder(View itemView, MainActivity mainActivity) {
@@ -42,12 +40,21 @@ public class ContactsHolder extends RecyclerView.ViewHolder {
         phoneNumberContact.setText(contact.email);
 
 
-        btnShareRedes = (Button) view.findViewById(R.id.btnShare);
+        btnShareRedes = view.findViewById(R.id.btnShare);
         btnShareRedes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //TODO: share button
                 Log.i(TAG, "btnSharePressed");
+            }
+        });
+
+        btnInfoContact = view.findViewById(R.id.btnInfo);
+        btnInfoContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO: Boton info del contacto
+                Log.i(TAG, "btnInfoContact");
             }
         });
 
