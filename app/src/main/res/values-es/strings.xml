@@ -50,4 +50,6 @@
     <string name="logout">Logout</string>
     <string name="chat_edit_text_hint">Mensaje</string>
     <string name="chat_send">Enviar</string>
+    <string name="title_activity_reset_password" translatable="false"></string>
+    <string name="title_share_activity">Compartir mensajes encriptados</string>
 </resources>

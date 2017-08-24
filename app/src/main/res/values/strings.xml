@@ -64,6 +64,7 @@
     <string name="logout">Logout</string>
     <string name="chat_edit_text_hint">Message</string>
     <string name="chat_send">Send</string>
+    <string name="title_share_activity">Share crypt messages</string>
 
 
 </resources>
