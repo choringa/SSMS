@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class ShareTextActivity extends AppCompatActivity {
@@ -17,7 +18,8 @@ public class ShareTextActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private Button btnShare, btnPreview;
-    private TextView etPlainText, etCryptText;
+    private TextView etSubject, etPlainText, etCryptText;
+    private Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +28,15 @@ public class ShareTextActivity extends AppCompatActivity {
 
         etPlainText = findViewById(R.id.etSharePlainText);
         etCryptText = findViewById(R.id.etShareCryptText);
+        etSubject = findViewById(R.id.etSubject);
+        spinner = findViewById(R.id.spinner_share_crypt);
 
         btnShare = findViewById(R.id.btnShare);
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.i(TAG, "btnSharePressed");
-                shareButton();
+                shareButton(view);
             }
         });
 
@@ -56,7 +60,7 @@ public class ShareTextActivity extends AppCompatActivity {
      */
     private void previewCrypt(View view) {
         String textoPlano = etPlainText.getText().toString();
-        if(!textoPlano.trim().equals("")){
+        if(!textoPlano.trim().equals("") ){
             String encryptedMessage = cryptMessage(textoPlano);
             etCryptText.setVisibility(View.VISIBLE);
             etCryptText.setText(encryptedMessage);
@@ -81,16 +85,28 @@ public class ShareTextActivity extends AppCompatActivity {
      * Metodo que pemrite al usuario compartir el mensaje encriptado por las diferentes aplicaciones que permiten
      * el ingreso de texto plano y que el usuario tenga instaladas.
      */
-    private void shareButton() {
-        Intent share = new Intent(Intent.ACTION_SEND);
-        share.setType("text/plain");
+    private void shareButton(View view) {
 
-        // You can add subject also
-        //sharingIntent.putExtra( android.content.Intent.EXTRA_SUBJECT,
-        //"Subject Here");
 
-        share.putExtra(android.content.Intent.EXTRA_TEXT, "el texto cifrado");
-        startActivity(Intent.createChooser(share,"Share via"));
+        String textoPlano = etPlainText.getText().toString();
+        if(!textoPlano.trim().equals("")){
+            String encryptedMessage = cryptMessage(textoPlano);
+
+            Intent share = new Intent(Intent.ACTION_SEND);
+            share.setType("text/plain");
+
+            // Si tiene subject lo manda si no manda el default
+            share.putExtra( android.content.Intent.EXTRA_SUBJECT, etSubject.getText().toString().equals("") ? "Sent from SSMS" : etSubject.getText().toString());
+
+            share.putExtra(android.content.Intent.EXTRA_TEXT, encryptedMessage);
+            startActivity(Intent.createChooser(share,"Share via"));
+
+        }
+        else {
+            Snackbar.make(view, "You must insert a message", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
+
+
     }
 
     private void setToolbar() {

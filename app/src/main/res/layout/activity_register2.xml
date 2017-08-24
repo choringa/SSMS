@@ -80,14 +80,6 @@
         </android.support.design.widget.TextInputLayout>
 
         <Switch
-            android:id="@+id/switch1_reg2"
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
-            android:text="@string/save_private_key" />
-
-        <Switch
             android:id="@+id/switch2_reg2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

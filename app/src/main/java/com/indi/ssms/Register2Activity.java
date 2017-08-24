@@ -36,7 +36,7 @@ public class Register2Activity extends AppCompatActivity {
     private Button btnFinalizarRegistro;
     private ProgressBar progressBar;
     private ArrayAdapter<CharSequence> adapterBytes, adapterMethod;
-    private Switch switchTerminos, switchAlmacenarPK;
+    private Switch switchTerminos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +68,6 @@ public class Register2Activity extends AppCompatActivity {
         });
 
         switchTerminos = (Switch) findViewById(R.id.switch2_reg2);
-        switchAlmacenarPK = (Switch) findViewById(R.id.switch1_reg2);
 
     }
 
@@ -83,7 +82,6 @@ public class Register2Activity extends AppCompatActivity {
     private void verificarCampos() {
         String publicKey = eTpublicKey.getText().toString();
         String privateKey = eTprivateKey.getText().toString();
-        String PKAGuardar = "";
         int positionSpinnerMethod = spinnerCryptMethod.getSelectedItemPosition();
         int positionSpinnerLongBytes = spinnerBytesLong.getSelectedItemPosition();
 
@@ -118,20 +116,15 @@ public class Register2Activity extends AppCompatActivity {
 
         progressBar.setVisibility(View.VISIBLE);
 
-        if(switchAlmacenarPK.isChecked())
-            PKAGuardar = "local";
-        else
-            PKAGuardar = privateKey;
-
         //Si pasa tdo procede a insertar las llaves en la base
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
         FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = mDatabase.getReference("keys");
+        DatabaseReference myRef = mDatabase.getReference("keys").child(user.getUid()).child(adapterMethod.getItem(positionSpinnerMethod).toString()).child(adapterBytes.getItem(positionSpinnerLongBytes).toString());
 
-        UserKeysPairsBase userKeysBase = new UserKeysPairsBase(publicKey, PKAGuardar, adapterMethod.getItem(positionSpinnerMethod).toString(), adapterBytes.getItem(positionSpinnerLongBytes).toString());
+        UserKeysPairsBase userKeysBase = new UserKeysPairsBase(publicKey, adapterMethod.getItem(positionSpinnerMethod).toString(), adapterBytes.getItem(positionSpinnerLongBytes).toString());
 
-        myRef.child(user.getUid()).setValue(userKeysBase).addOnCompleteListener(Register2Activity.this, new OnCompleteListener<Void>() {
+        myRef.setValue(userKeysBase).addOnCompleteListener(Register2Activity.this, new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 progressBar.setVisibility(View.GONE);

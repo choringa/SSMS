@@ -13,15 +13,22 @@
         android:id="@+id/appbarlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:contentInsetStart="0dp"
+        android:contentInsetLeft="0dp"
+        android:contentInsetRight="0dp"
+        android:contentInsetEnd="0dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:contentInsetRight="0dp"
+        app:contentInsetEnd="0dp">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
+            app:layout_scrollFlags="scroll|enterAlways">
 
                 <TextView
                     android:id="@+id/toolbar_title"
@@ -30,7 +37,9 @@
                     android:text="@string/title_share_activity"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:paddingRight="20dp"
+                    android:layout_marginRight="20dp"
+                    android:textStyle="bold"/>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
@@ -44,14 +53,33 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/etSubject"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/rounded_corner_contact_message"
+                android:text="Sent from SSMS app"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="17sp"
+                android:gravity="top"
+                android:maxLines="1"
+                android:maxLength="60"
+                android:hint="Subject"/>
+
+            <EditText
                 android:id="@+id/etSharePlainText"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:background="@drawable/rounded_corner_contact_message"
                 android:layout_margin="10dp"
-                android:textSize="20sp"
-                android:gravity="bottom"
-                android:hint="@string/crypt_method"/>
+                android:textSize="17sp"
+                android:gravity="top"
+                android:overScrollMode="always"
+                android:scrollbarStyle="insideInset"
+                android:scrollbars="vertical"
+                android:hint="Type your message..."/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -69,7 +97,7 @@
                 android:id="@+id/btnPreview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/input_register_hint"
+                android:background="@color/paleta1Primary"
                 android:textColor="@color/white"
                 android:layout_margin="10dp"
                 android:text="Preview"/>
@@ -81,7 +109,8 @@
                 android:background="@drawable/rounded_corner_contact_message"
                 android:layout_margin="10dp"
                 android:textSize="20sp"
-                android:gravity="bottom"
+                android:textColor="@drawable/edit_selector_style"
+                android:gravity="top"
                 android:enabled="false"
                 android:visibility="gone"/>
 
