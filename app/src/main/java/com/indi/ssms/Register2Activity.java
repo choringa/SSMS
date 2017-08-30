@@ -7,25 +7,25 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.indi.mundo.UserBase;
+import com.indi.mundo.SecurityCrypt;
 import com.indi.mundo.UserKeysPairsBase;
+
+import java.security.Key;
+import java.security.KeyPair;
 
 public class Register2Activity extends AppCompatActivity {
 
@@ -80,8 +80,8 @@ public class Register2Activity extends AppCompatActivity {
      * Nota: Si deja los espacios vacios, pasa a generarlos para luego guardarlos con el metodo y la cantidad de bytes que haya elegido el usuario.
      */
     private void verificarCampos() {
-        String publicKey = eTpublicKey.getText().toString();
-        String privateKey = eTprivateKey.getText().toString();
+        Key publicKey = null;
+        Key privateKey = null ;
         int positionSpinnerMethod = spinnerCryptMethod.getSelectedItemPosition();
         int positionSpinnerLongBytes = spinnerBytesLong.getSelectedItemPosition();
 
@@ -93,13 +93,20 @@ public class Register2Activity extends AppCompatActivity {
         }
 
 
-        if(TextUtils.isEmpty(publicKey.trim()) && TextUtils.isEmpty(privateKey.trim())){
-            //TODO generarle las llaves al pobre diablo.
-            publicKey = "publicKey123";
-            privateKey = "privateKey321";
+        if(TextUtils.isEmpty(eTpublicKey.getText().toString().trim()) && TextUtils.isEmpty(eTprivateKey.getText().toString().trim())){
+            KeyPair kp = SecurityCrypt.generateKeys(adapterMethod.getItem(positionSpinnerMethod).toString(), Integer.parseInt(adapterBytes.getItem(positionSpinnerLongBytes).toString()));
+            if (kp == null){
+                Toast.makeText(this, "Error generando las llaves, llave.", Toast.LENGTH_LONG);
+                return;
+            }
+            else{
+                publicKey = kp.getPublic();
+                privateKey = kp.getPrivate();
+            }
+
         }
-        else if(!TextUtils.isEmpty(privateKey.trim()) && !TextUtils.isEmpty(publicKey.trim())){
-            if(!revisarKeys(publicKey, privateKey, positionSpinnerMethod, positionSpinnerLongBytes)){
+        else if(!TextUtils.isEmpty(eTpublicKey.getText().toString().trim()) && !TextUtils.isEmpty(eTprivateKey.getText().toString().trim())){
+            if(!SecurityCrypt.revisarKeys(eTpublicKey.getText().toString(), eTprivateKey.getText().toString(), positionSpinnerMethod, positionSpinnerLongBytes)){
                 Toast.makeText(this, "Las llaves agregadas no corresponden al metodo o no contienen la longitud adecuada de bytes.", Toast.LENGTH_LONG);
                 return;
             }
@@ -124,6 +131,7 @@ public class Register2Activity extends AppCompatActivity {
 
         UserKeysPairsBase userKeysBase = new UserKeysPairsBase(publicKey, adapterMethod.getItem(positionSpinnerMethod).toString(), adapterBytes.getItem(positionSpinnerLongBytes).toString());
 
+        final Key finalPrivateKey = privateKey;
         myRef.setValue(userKeysBase).addOnCompleteListener(Register2Activity.this, new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -132,6 +140,7 @@ public class Register2Activity extends AppCompatActivity {
                     Toast.makeText(Register2Activity.this, "setValue Failed:" + task.getException(), Toast.LENGTH_SHORT).show();
                 }
                 else{
+                    SecurityCrypt.savePrivateKey(finalPrivateKey);
                     progressBar.setVisibility(View.GONE);
                     startActivity(new Intent(Register2Activity.this, MainActivity.class));
                     finish();
@@ -141,19 +150,6 @@ public class Register2Activity extends AppCompatActivity {
 
 
 
-    }
-
-    /**
-     * Metodo que revisa las llaves esten en los parametros especificados por el usuario
-     * @param publicKey
-     * @param privateKey
-     * @param positionSpinnerMethod
-     * @param positionSpinnerLongBytes
-     * @return
-     */
-    private boolean revisarKeys(String publicKey, String privateKey, int positionSpinnerMethod, int positionSpinnerLongBytes) {
-        //TODO
-        return true;
     }
 
     @Override
